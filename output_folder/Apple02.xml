@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<products>
-    <product>
-        <description>Apple 2</description>
-        <gtin>00885909464512</gtin>
-        <price currency="USD">399.0</price>
-        <supplier>Apple</supplier>
-    </product>
-    <product>
-        <description>Apple 2</description>
-        <gtin>00885909464042</gtin>
-        <price currency="USD">1149.0</price>
-        <supplier>Apple</supplier>
-    </product>
-</products>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><products><product>
+            <description>Apple 2</description>
+            <gtin>00885909464512</gtin>
+            <price currency="USD">399.0</price>
+            <supplier>Apple</supplier>
+        </product><product>
+            <description>Apple 2</description>
+            <gtin>00885909464042</gtin>
+            <price currency="USD">1149.0</price>
+            <supplier>Apple</supplier>
+        </product></products>
