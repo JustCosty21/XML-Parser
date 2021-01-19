@@ -28,11 +28,9 @@ import java.util.stream.Stream;
 
 public class XMLParser {
 
-    public XMLParser() {
+    public XMLParser() {}
 
-    }
-
-    protected static void createXML(ListMultimap<String, Element> list, String orderNo) throws ParserConfigurationException {
+    public static void createXML(ListMultimap<String, Element> list, String orderNo) throws ParserConfigurationException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
