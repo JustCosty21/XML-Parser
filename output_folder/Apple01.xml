@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<plm>
+<products>
     <product>
         <description>Apple iPad 2 with Wi-Fi 16GB - iOS 5 - Black</description>
         <gtin>00885909464517</gtin>
@@ -12,4 +12,4 @@
         <price currency="USD">1149.0</price>
         <supplier>Apple</supplier>
     </product>
-</plm>
+</products>
