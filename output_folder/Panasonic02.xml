@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plm>
+    <product>
+        <description>Panasonic 2</description>
+        <gtin>00885170076472</gtin>
+        <price currency="USD">999.99</price>
+        <supplier>Panasonic</supplier>
+    </product>
+</plm>
