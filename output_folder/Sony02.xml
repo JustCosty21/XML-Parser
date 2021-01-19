@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<products>
-    <product>
-        <description>Sony 2</description>
-        <gtin>00027242816652</gtin>
-        <price currency="USD">2999.99</price>
-        <supplier>Sony</supplier>
-    </product>
-    <product>
-        <description>Sony 2</description>
-        <gtin>00027242831432</gtin>
-        <price currency="USD">91.99</price>
-        <supplier>Sony</supplier>
-    </product>
-</products>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><products><product>
+            <description>Sony 2</description>
+            <gtin>00027242816652</gtin>
+            <price currency="USD">2999.99</price>
+            <supplier>Sony</supplier>
+        </product><product>
+            <description>Sony 2</description>
+            <gtin>00027242831432</gtin>
+            <price currency="USD">91.99</price>
+            <supplier>Sony</supplier>
+        </product></products>

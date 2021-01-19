@@ -64,6 +64,13 @@ public class XMLParser {
 
     }
 
+    /**
+     * Method to process the file.
+     * @param path
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     */
     public void processFile(Path path) throws IOException, ParserConfigurationException, SAXException {
         createOutputFolder();
         MyEntry<String, Document> doc = getDocumentFromPath(path);
@@ -73,18 +80,19 @@ public class XMLParser {
         createXML(brands.getValue(), brands.getKey());
     }
 
-    public Boolean createOutputFolder() {
-        boolean result = false;
 
+    private void createOutputFolder() {
         File directory = new File("./output_folder");
 
         if (!directory.exists()) {
-            result = directory.mkdirs();
+            directory.mkdirs();
         }
-
-        return result;
     }
 
+    /**
+     *
+     * @return list of order files
+     */
     public List<Path> getOrderFiles() {
         List<Path> orderFiles = null;
         try (Stream<Path> paths = Files.walk(Paths.get("./input_files"))) {
@@ -97,7 +105,15 @@ public class XMLParser {
         return orderFiles;
     }
 
-    public MyEntry<String, Document> getDocumentFromPath(Path path) throws ParserConfigurationException, IOException, SAXException {
+    /**
+     *
+     * @param path
+     * @return a Pair consisting of the order no and the document
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     */
+    private MyEntry<String, Document> getDocumentFromPath(Path path) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(path.toFile());
@@ -108,13 +124,23 @@ public class XMLParser {
         return new MyEntry<>(orderNo, doc);
     }
 
+    /**
+     *
+     * @param path
+     * @return the order no based on the file name.
+     */
     private String getOrderNo(Path path) {
 
         return path.getFileName().toString()
                 .replaceFirst("[.][^.]+$", "").replaceAll("\\D+", "");
     }
 
-    public MyEntry<String, ListMultimap<String, Element>> getBrands(MyEntry<String, Document> doc) {
+    /**
+     *
+     * @param doc
+     * @return order no and a list of products for every supplier
+     */
+    private MyEntry<String, ListMultimap<String, Element>> getBrands(MyEntry<String, Document> doc) {
         ListMultimap<String, Element> musicianMap = ArrayListMultimap.create();
 
         NodeList nList = doc.getValue().getElementsByTagName("product");
