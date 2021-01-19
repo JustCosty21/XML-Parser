@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<plm>
+<products>
     <product>
         <description>Sony 2</description>
         <gtin>00027242816652</gtin>
@@ -12,4 +12,4 @@
         <price currency="USD">91.99</price>
         <supplier>Sony</supplier>
     </product>
-</plm>
+</products>

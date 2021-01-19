@@ -35,23 +35,15 @@ public class XMLParser {
     protected static void createXML(ListMultimap<String, Element> list, String orderNo) throws ParserConfigurationException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-//        Document newDoc = docBuilder.newDocument();
-//
-//
-//        Element root = newDoc.createElement("plm");
-//        newDoc.appendChild(root);
 
-        //key = supplier name and file no
         list.asMap().forEach((key, collection) -> {
             Document newDoc = docBuilder.newDocument();
 
-
-            Element root = newDoc.createElement("plm");
+            Element root = newDoc.createElement("products");
             newDoc.appendChild(root);
             for (Element e : collection) {
                 Node copy = newDoc.importNode(e, true);
                 root.insertBefore(copy, root.getNextSibling());
-
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
