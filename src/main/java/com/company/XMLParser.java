@@ -23,12 +23,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class XMLParser {
 
-    public XMLParser() {}
+    public XMLParser() {
+    }
 
     public static void createXML(ListMultimap<String, Element> list, String orderNo) throws ParserConfigurationException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -66,6 +68,7 @@ public class XMLParser {
 
     /**
      * Method to process the file.
+     *
      * @param path
      * @throws IOException
      * @throws ParserConfigurationException
@@ -90,23 +93,54 @@ public class XMLParser {
     }
 
     /**
-     *
      * @return list of order files
      */
     public List<Path> getOrderFiles() {
+        String pathToDirectory = checkFolder();
+
         List<Path> orderFiles = null;
-        try (Stream<Path> paths = Files.walk(Paths.get("./input_files"))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(pathToDirectory))) {
             orderFiles = paths.filter(Files::isRegularFile)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e1) {
+            System.out.println("Folder does not exist!");
         }
 
         return orderFiles;
     }
 
+    private String checkFolder() {
+        Scanner sc = new Scanner(System.in);
+        String pathToDirectory = "-1";
+        do {
+            System.out.println("Enter the location of the order files.");
+            pathToDirectory = sc.nextLine();
+
+            File input_folder = new File(pathToDirectory);
+            if (!input_folder.exists()) {
+                System.out.println("Folder does not exist.");
+                pathToDirectory = "-1";
+            } else {
+                if (input_folder.isDirectory()) {
+                    File dir = new File(pathToDirectory);
+                    File[] files = dir.listFiles((d, name) -> name.endsWith(".xml"));
+
+                    if (files.length == 0)
+                        pathToDirectory = "-1";
+                } else {
+                    System.out.println("This is a file. Please provide a folder location.");
+
+                    pathToDirectory = "-1";
+                }
+            }
+        } while (pathToDirectory.equals("-1"));
+
+        return pathToDirectory;
+    }
+
     /**
-     *
      * @param path
      * @return a Pair consisting of the order no and the document
      * @throws ParserConfigurationException
@@ -125,7 +159,6 @@ public class XMLParser {
     }
 
     /**
-     *
      * @param path
      * @return the order no based on the file name.
      */
@@ -136,7 +169,6 @@ public class XMLParser {
     }
 
     /**
-     *
      * @param doc
      * @return order no and a list of products for every supplier
      */
