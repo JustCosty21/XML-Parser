@@ -32,7 +32,7 @@ public class XMLParser {
     public XMLParser() {
     }
 
-    public static void createXML(ListMultimap<String, Element> list, String orderNo) throws ParserConfigurationException {
+    public void createXML(ListMultimap<String, Element> list, String orderNo) throws ParserConfigurationException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
