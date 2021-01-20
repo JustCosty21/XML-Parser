@@ -8,6 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,16 +37,16 @@ public class XMLParser {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        String howToSort = "1";
+        String howToSort = howToSortFiles();
 
         list.asMap().forEach((key, collection) -> {
             Document newDoc = docBuilder.newDocument();
 
             List<Element> elements = new ArrayList<>(collection);
 
-            if (howToSort.equals("1"))
+            if (howToSort.equals("0"))
                 elements.sort(Comparator.comparingDouble(o -> Double.parseDouble(o.getElementsByTagName("price").item(0).getTextContent())));
-            else if (howToSort.equals("2")) {
+            else if (howToSort.equals("1")) {
                 elements.sort(Comparator.comparingDouble(o -> (Double.parseDouble(o.getElementsByTagName("price").item(0).getTextContent()))));
                 Collections.reverse(elements);
             }
@@ -75,24 +76,16 @@ public class XMLParser {
                 e.printStackTrace();
             }
         });
-
-        System.exit(0);
     }
 
     private String howToSortFiles() {
-        String userInput;
+        String[] options = new String[]{"Ascending sort by price", "Descending sort by price", "Random"};
+        int response = JOptionPane.showOptionDialog(null, "How do you want this file?", "How to order",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
+        System.out.println(response);
 
-        do {
-            System.out.println("Press 1 to sort ascending by price \n 2 to sort descending by price \n 3 for random");
-            userInput = sc.nextLine();
-            if (!Objects.equals(userInput, "1") && !Objects.equals(userInput, "2") && !Objects.equals(userInput, "3")) {
-                System.out.println("Incorrect output. Please try again!");
-
-                userInput = "-1";
-            }
-        } while (userInput.equals("-1"));
-
-        return userInput;
+        return String.valueOf(response);
     }
 
     /**

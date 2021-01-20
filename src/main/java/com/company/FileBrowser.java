@@ -2,7 +2,6 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.io.File;
 
 public class FileBrowser {
@@ -54,7 +53,7 @@ public class FileBrowser {
                 System.exit(0);
             }
 
-        }while(file.getAbsolutePath().contains("wrongpath"));
+        } while (file.getAbsolutePath().contains("wrongpath"));
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);
 

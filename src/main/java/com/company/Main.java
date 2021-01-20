@@ -22,6 +22,8 @@ public class Main {
         for (Path path : orderFiles) {
             writer.processFile(path);
         }
+
+        System.exit(0);
     }
 
 
