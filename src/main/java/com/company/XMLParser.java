@@ -22,12 +22,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class XMLParser {
+    private Scanner sc = new Scanner(System.in);
 
     public XMLParser() {
     }
@@ -36,12 +36,26 @@ public class XMLParser {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
+        String howToSort = howToSortFiles();
+
         list.asMap().forEach((key, collection) -> {
             Document newDoc = docBuilder.newDocument();
+            
+            List<Element> elements = new ArrayList<>();
+            for(Element e : collection) {
+                elements.add(e);
+            }
+
+            if(howToSort.equals("1"))
+                elements.sort(Comparator.comparingDouble(o -> Double.parseDouble(o.getElementsByTagName("price").item(0).getTextContent())));
+            else if (howToSort.equals("2")) {
+                elements.sort(Comparator.comparingDouble(o -> (Double.parseDouble(o.getElementsByTagName("price").item(0).getTextContent()))));
+                Collections.reverse(elements);
+            }
 
             Element root = newDoc.createElement("products");
             newDoc.appendChild(root);
-            for (Element e : collection) {
+            for (Element e : elements) {
                 Node copy = newDoc.importNode(e, true);
                 root.insertBefore(copy, root.getNextSibling());
             }
@@ -54,7 +68,7 @@ public class XMLParser {
                 e.printStackTrace();
             }
             DOMSource source = new DOMSource(newDoc);
-            File file = new java.io.File("./output_folder/" + key + orderNo + ".xml");
+            File file = new File("./output_folder/" + key + orderNo + ".xml");
 
             StreamResult result = new StreamResult(file);
             try {
@@ -64,6 +78,22 @@ public class XMLParser {
             }
         });
 
+    }
+
+    private String howToSortFiles() {
+        String userInput = "-1";
+
+        do {
+            System.out.println("Press 1 to sort ascending by price \n 2 to sort descending by price \n 3 for random");
+            userInput = sc.nextLine();
+            if(!Objects.equals(userInput, "1") && !Objects.equals(userInput, "2") && !Objects.equals(userInput, "3")) {
+                System.out.println("Incorrect output. Please try again!");
+
+                userInput = "-1";
+            }
+        } while (userInput == "-1");
+
+        return userInput;
     }
 
     /**
@@ -112,7 +142,6 @@ public class XMLParser {
     }
 
     private String checkFolder() {
-        Scanner sc = new Scanner(System.in);
         String pathToDirectory = "-1";
         do {
             System.out.println("Enter the location of the order files.");
