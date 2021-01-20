@@ -7,7 +7,7 @@ import java.io.File;
 public class FileBrowser {
 
     public static String createWindow() {
-        JFrame frame = new JFrame("Swing Tester");
+        JFrame frame = new JFrame("Select the folder of order files.");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String s = createUI(frame);
 
@@ -33,7 +33,6 @@ public class FileBrowser {
                 file = fileChooser.getSelectedFile();
 
                 if (!file.exists()) {
-                    System.out.println("Folder does not exist.");
                     file = new File("wrongpath");
                 } else {
                     if (file.isDirectory()) {
@@ -44,8 +43,6 @@ public class FileBrowser {
                             file = new File("wrongpath");
                         }
                     } else {
-                        System.out.println("This is a file. Please provide a folder location.");
-
                         file = new File("wrongpath");
                     }
                 }
