@@ -14,6 +14,18 @@
             <supplier>Apple</supplier>
         </product>
         <product>
+            <description>Apple iPad 2 with Wi-Fi 16GB - iOS 5 - Black</description>
+            <gtin>00885909464517</gtin>
+            <price currency="USD">6788</price>
+            <supplier>Apple</supplier>
+        </product>
+        <product>
+            <description>Apple iPad 2 with Wi-Fi 16GB - iOS 5 - Black</description>
+            <gtin>00885909464517</gtin>
+            <price currency="USD">190</price>
+            <supplier>Apple</supplier>
+        </product>
+        <product>
             <description>Sony NWZ-E464 8GB E Series Walkman Video MP3 Player Blue</description>
             <gtin>00027242831438</gtin>
             <price currency="USD">91.99</price>

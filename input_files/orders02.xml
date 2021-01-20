@@ -8,6 +8,12 @@
             <supplier>Sony</supplier>
         </product>
         <product>
+            <description>Sony 3</description>
+            <gtin>00027242816652</gtin>
+            <price currency="USD">4000</price>
+            <supplier>Sony</supplier>
+        </product>
+        <product>
             <description>Apple 2</description>
             <gtin>00885909464512</gtin>
             <price currency="USD">399.0</price>
