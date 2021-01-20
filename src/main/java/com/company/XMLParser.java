@@ -36,14 +36,14 @@ public class XMLParser {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        String howToSort = howToSortFiles();
+        String howToSort = "1";
 
         list.asMap().forEach((key, collection) -> {
             Document newDoc = docBuilder.newDocument();
 
             List<Element> elements = new ArrayList<>(collection);
 
-            if(howToSort.equals("1"))
+            if (howToSort.equals("1"))
                 elements.sort(Comparator.comparingDouble(o -> Double.parseDouble(o.getElementsByTagName("price").item(0).getTextContent())));
             else if (howToSort.equals("2")) {
                 elements.sort(Comparator.comparingDouble(o -> (Double.parseDouble(o.getElementsByTagName("price").item(0).getTextContent()))));
@@ -76,6 +76,7 @@ public class XMLParser {
             }
         });
 
+        System.exit(0);
     }
 
     private String howToSortFiles() {
@@ -84,7 +85,7 @@ public class XMLParser {
         do {
             System.out.println("Press 1 to sort ascending by price \n 2 to sort descending by price \n 3 for random");
             userInput = sc.nextLine();
-            if(!Objects.equals(userInput, "1") && !Objects.equals(userInput, "2") && !Objects.equals(userInput, "3")) {
+            if (!Objects.equals(userInput, "1") && !Objects.equals(userInput, "2") && !Objects.equals(userInput, "3")) {
                 System.out.println("Incorrect output. Please try again!");
 
                 userInput = "-1";
@@ -109,6 +110,7 @@ public class XMLParser {
         MyEntry<String, ListMultimap<String, Element>> brands = getBrands(doc);
 
         assert brands != null;
+
         createXML(brands.getValue(), brands.getKey());
     }
 
@@ -142,29 +144,7 @@ public class XMLParser {
 
     private String checkFolder() {
         String pathToDirectory;
-        do {
-            System.out.println("Enter the location of the order files.");
-            pathToDirectory = sc.nextLine();
-
-            File input_folder = new File(pathToDirectory);
-            if (!input_folder.exists()) {
-                System.out.println("Folder does not exist.");
-                pathToDirectory = "-1";
-            } else {
-                if (input_folder.isDirectory()) {
-                    File dir = new File(pathToDirectory);
-                    File[] files = dir.listFiles((d, name) -> name.endsWith(".xml"));
-
-                    assert files != null;
-                    if (files.length == 0)
-                        pathToDirectory = "-1";
-                } else {
-                    System.out.println("This is a file. Please provide a folder location.");
-
-                    pathToDirectory = "-1";
-                }
-            }
-        } while (pathToDirectory.equals("-1"));
+        pathToDirectory = FileBrowser.createWindow();
 
         return pathToDirectory;
     }
