@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class XMLParser {
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public XMLParser() {
     }
@@ -40,11 +40,8 @@ public class XMLParser {
 
         list.asMap().forEach((key, collection) -> {
             Document newDoc = docBuilder.newDocument();
-            
-            List<Element> elements = new ArrayList<>();
-            for(Element e : collection) {
-                elements.add(e);
-            }
+
+            List<Element> elements = new ArrayList<>(collection);
 
             if(howToSort.equals("1"))
                 elements.sort(Comparator.comparingDouble(o -> Double.parseDouble(o.getElementsByTagName("price").item(0).getTextContent())));
@@ -72,6 +69,7 @@ public class XMLParser {
 
             StreamResult result = new StreamResult(file);
             try {
+                assert transformer != null;
                 transformer.transform(source, result);
             } catch (TransformerException e) {
                 e.printStackTrace();
@@ -81,7 +79,7 @@ public class XMLParser {
     }
 
     private String howToSortFiles() {
-        String userInput = "-1";
+        String userInput;
 
         do {
             System.out.println("Press 1 to sort ascending by price \n 2 to sort descending by price \n 3 for random");
@@ -91,7 +89,7 @@ public class XMLParser {
 
                 userInput = "-1";
             }
-        } while (userInput == "-1");
+        } while (userInput.equals("-1"));
 
         return userInput;
     }
@@ -110,6 +108,7 @@ public class XMLParser {
 
         MyEntry<String, ListMultimap<String, Element>> brands = getBrands(doc);
 
+        assert brands != null;
         createXML(brands.getValue(), brands.getKey());
     }
 
@@ -142,7 +141,7 @@ public class XMLParser {
     }
 
     private String checkFolder() {
-        String pathToDirectory = "-1";
+        String pathToDirectory;
         do {
             System.out.println("Enter the location of the order files.");
             pathToDirectory = sc.nextLine();
@@ -156,6 +155,7 @@ public class XMLParser {
                     File dir = new File(pathToDirectory);
                     File[] files = dir.listFiles((d, name) -> name.endsWith(".xml"));
 
+                    assert files != null;
                     if (files.length == 0)
                         pathToDirectory = "-1";
                 } else {
